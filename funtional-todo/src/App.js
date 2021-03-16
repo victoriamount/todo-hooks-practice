@@ -7,31 +7,30 @@ import data from './data.json'
 // Components
 import Header from './components/Header'
 import ToDoList from './components/ToDoList'
-import ToDoForm from './components/ToDoForm';
+import ToDoForm from './components/ToDoForm'
 
 // Styling
-import './App.css';
+import './App.css'
 
 function App() {
   const [ toDos, setToDos ] = useState(data)
 
-  const handleToggle = (id) => {
-    let mapped = toDos.map(toDo => {
-      return toDo.id === id ? { ...toDo, complete: !toDo.complete } : {...toDo}
+  const handleToggle = (taskId) => {
+    let copy = toDos.map(toDo => {
+      return toDo.id === taskId ? {...toDo, complete: !toDo.complete} : {...toDo}
     })
-    setToDos(mapped)
+    setToDos(copy)
   }
 
   const handleFilter = () => {
-    let filtered = toDos.filter(toDo => {
+    let copy = toDos.filter(toDo => {
       return !toDo.complete
     })
-    setToDos(filtered)
+    setToDos(copy)
   }
 
   const addToDo = (formValues) => {
-    let copy = [...toDos]
-    copy = [...copy, { id: nanoid(), task: formValues, complete: false }]
+    let copy = [...toDos, {id: nanoid(), task: formValues, complete: false}]
     setToDos(copy)
   }
 
@@ -41,7 +40,7 @@ function App() {
       <ToDoList toDos={toDos} handleToggle={handleToggle} handleFilter={handleFilter} />
       <ToDoForm addToDo={addToDo} />
     </div>
-  );
+  )
 }
 
 export default App
